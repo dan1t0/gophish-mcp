@@ -1,0 +1,16 @@
+[project]
+name = "gophish-mcp-server"
+version = "0.1.0"
+description = "MCP server for Gophish API integration"
+authors = [
+    {name = "Dani Martinez", email = "dan1t0@dan1t0.com"}
+]
+dependencies = [
+    "mcp>=1.0.0",
+    "requests>=2.31.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0"
+]
+requires-python = ">=3.8"

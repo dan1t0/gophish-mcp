@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "gophish": {
+      "command": "python",
+      "args": ["/Users/danito/Downloads/mcp_gophish/server.py"],
+      "disabled": false,
+      "autoApprove": [
+        "gophish_get_campaigns",
+        "gophish_get_campaign",
+        "gophish_get_active_campaigns",
+        "gophish_get_completed_campaigns",
+        "gophish_get_recent_campaigns",
+        "gophish_get_latest_campaign",
+        "gophish_get_campaigns_summary",
+        "gophish_get_campaign_results",
+        "gophish_get_campaign_summary",
+        "gophish_get_campaign_analytics",
+        "gophish_get_global_analytics",
+        "gophish_get_system_status",
+        "gophish_search_campaigns",
+        "gophish_search_groups",
+        "gophish_search_templates",
+        "gophish_get_groups",
+        "gophish_get_templates",
+        "gophish_get_pages",
+        "gophish_get_smtp_profiles",
+        "gophish_get_users",
+        "gophish_get_campaign_by_status",
+        "gophish_get_campaign_by_date_range",
+        "gophish_get_campaign_targets",
+        "gophish_get_campaign_events"
+      ]
+    }
+  }
+}
