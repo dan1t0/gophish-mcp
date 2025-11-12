@@ -145,6 +145,7 @@ Restart your MCP client (Claude, Cursor, etc.)
 ### 🎯 Campaigns (Complete Management)
 
 #### Basic Operations
+
 | Tool | Description | Type |
 |------|-------------|------|
 | `gophish_get_campaigns` | Get all campaigns | 📖 READ-ONLY |
@@ -154,6 +155,7 @@ Restart your MCP client (Claude, Cursor, etc.)
 | `gophish_delete_campaign` | Delete campaign | ✏️ WRITE |
 
 #### Analysis and Statistics
+
 | Tool | Description | Type |
 |------|-------------|------|
 | `gophish_get_latest_campaign` | Get latest campaign with complete statistics | 📖 READ-ONLY |
@@ -163,6 +165,7 @@ Restart your MCP client (Claude, Cursor, etc.)
 | `gophish_get_campaign_analytics` | Get complete analysis of a campaign | 📖 READ-ONLY |
 
 #### Filters and Search
+
 | Tool | Description | Type |
 |------|-------------|------|
 | `gophish_get_active_campaigns` | Get active campaigns | 📖 READ-ONLY |
@@ -173,6 +176,7 @@ Restart your MCP client (Claude, Cursor, etc.)
 | `gophish_search_campaigns` | Search campaigns by name | 📖 READ-ONLY |
 
 #### Utilities
+
 | Tool | Description | Type |
 |------|-------------|------|
 | `gophish_get_campaign_targets` | Get all targets of a campaign | 📖 READ-ONLY |
@@ -236,6 +240,7 @@ Restart your MCP client (Claude, Cursor, etc.)
 Once configured, you can use commands like:
 
 ### Basic Management
+
 ```
 Show me all GoPhish campaigns
 ```
@@ -249,6 +254,7 @@ Update campaign with ID 5 to change its name to "Updated Campaign"
 ```
 
 ### Analysis and Reports
+
 ```
 Show me the complete analysis of campaign with ID 3
 ```
@@ -262,6 +268,7 @@ Show me events from campaign 2
 ```
 
 ### Search and Filters
+
 ```
 Search campaigns containing "phishing" in the name
 ```
@@ -275,6 +282,7 @@ Get campaigns created in the last 7 days
 ```
 
 ### User Management
+
 ```
 List all system users
 ```
@@ -284,6 +292,7 @@ Create a new administrator user
 ```
 
 ### Advanced Search
+
 ```
 Search templates containing "urgent" in the subject
 ```
@@ -353,13 +362,12 @@ python test.py all
 
 - [Architecture Documentation](ARCHITECTURE.md) - Learn about the server architecture
 - [Test Results](TEST_RESULTS.md) - View comprehensive test results
-- [Spanish README](README_ESP.md) - Documentación en español
 
 ---
 
 <div align="center">
 
-**Made with ❤️ for the GoPhish community**
+**Made with ❤️ for the [GoPhish](https://github.com/gophish/gophish) community**
 
 ⭐ Star this repo if you find it useful!
 
