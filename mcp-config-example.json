@@ -2,7 +2,8 @@
   "mcpServers": {
     "gophish": {
       "command": "python",
-      "args": ["/Users/danito/Downloads/mcp_gophish/server.py"],
+      "args": ["/path/to/your/gophish-mcp/server.py"],
+      "cwd": "/path/to/your/gophish-mcp",
       "disabled": false,
       "autoApprove": [
         "gophish_get_campaigns",

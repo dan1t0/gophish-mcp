@@ -3,6 +3,7 @@
 ## Changes Made
 
 ### 🗂️ **Test Separation**
+
 - **Created `tests/` directory** with all testing files
 - **Removed duplicate files** from root directory
 - **Organized tests by functionality**:
@@ -13,6 +14,7 @@
   - `run_tests.py`: Main script to run all tests
 
 ### 🔐 **Credential Management**
+
 - **Created `env.example`** with example configuration
 - **Removed hardcoded credentials** from all Python files
 - **Implemented `python-dotenv`** for automatic environment variable loading
@@ -21,6 +23,7 @@
 ### 📁 **File Structure**
 
 #### Root Directory
+
 ```
 mcp_gophish/
 ├── server.py                    # Main MCP server
@@ -55,12 +58,14 @@ mcp_gophish/
 ### 🧪 **Enhanced Testing System**
 
 #### Organized Tests
+
 - **Basic tests**: Connection, basic CRUD
 - **Advanced tests**: Analysis, search, filters
 - **Diagnostic tests**: Connectivity verification
 - **Comprehensive test**: All functionalities
 
 #### Testing Configuration
+
 - **pytest.ini**: Automatic pytest configuration
 - **Dependencies**: pytest, pytest-asyncio, python-dotenv
 - **Scripts**: `run_tests.py` for easy execution
@@ -68,11 +73,13 @@ mcp_gophish/
 ### 🔧 **Technical Improvements**
 
 #### Configuration Management
+
 - **Environment variables**: Automatic loading from `.env`
 - **Validation**: Verification of required credentials
 - **Fallbacks**: Default values for local development
 
 #### Security
+
 - **Credentials**: Removed from code files
 - **Gitignore**: Configured to ignore sensitive files
 - **Templates**: Example files without real credentials
@@ -80,11 +87,13 @@ mcp_gophish/
 ### 📚 **Updated Documentation**
 
 #### Main README
+
 - **Configuration**: Instructions for `.env` and environment variables
 - **Testing**: Complete section on test execution
 - **Structure**: Documentation of new organization
 
 #### Test README
+
 - **Instructions**: How to run individual and complete tests
 - **Configuration**: Requirements and setup
 - **Files**: Description of each test file
@@ -92,6 +101,7 @@ mcp_gophish/
 ### 🚀 **Using the Organized Project**
 
 #### Initial Configuration
+
 ```bash
 # 1. Install dependencies
 pip install -e .
@@ -105,6 +115,7 @@ python test.py readonly
 ```
 
 #### Development
+
 ```bash
 # Run MCP server
 python server.py

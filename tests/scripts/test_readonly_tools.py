@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Batería de pruebas para herramientas de solo lectura del MCP GoPhish
+Test suite for GoPhish MCP read-only tools
 """
 import argparse
 import asyncio
@@ -61,10 +61,10 @@ class GoPhishMCPTester:
         """Initialize GoPhish client"""
         try:
             self.server.initialize_client()
-            print(f"{Colors.OKGREEN}✅ Cliente GoPhish inicializado correctamente{Colors.ENDC}")
+            print(f"{Colors.OKGREEN}✅ GoPhish client initialized successfully{Colors.ENDC}")
             return True
         except Exception as e:
-            print(f"{Colors.FAIL}❌ Error inicializando cliente: {e}{Colors.ENDC}")
+            print(f"{Colors.FAIL}❌ Error initializing client: {e}{Colors.ENDC}")
             return False
     
     def get_emoji_for_data(self, data, tool_name=""):
@@ -147,9 +147,9 @@ class GoPhishMCPTester:
     
     async def test_tool(self, tool_name, arguments=None, description=""):
         """Test a single tool"""
-        print(f"\n{Colors.OKBLUE}🧪 Probando: {Colors.BOLD}{tool_name}{Colors.ENDC}")
+        print(f"\n{Colors.OKBLUE}🧪 Testing: {Colors.BOLD}{tool_name}{Colors.ENDC}")
         if description:
-            print(f"   {Colors.OKCYAN}Descripción: {description}{Colors.ENDC}")
+            print(f"   {Colors.OKCYAN}Description: {description}{Colors.ENDC}")
         
         try:
             # Get the tool handler
@@ -160,7 +160,7 @@ class GoPhishMCPTester:
                     break
             
             if not tool_handler:
-                print(f"{Colors.FAIL}❌ Herramienta {tool_name} no encontrada{Colors.ENDC}")
+                print(f"{Colors.FAIL}❌ Tool {tool_name} not found{Colors.ENDC}")
                 self.failed_tests += 1
                 return False
             
@@ -172,15 +172,15 @@ class GoPhishMCPTester:
                 
                 # Check if it's an error
                 if response_text.startswith("Error:"):
-                    print(f"{Colors.FAIL}❌ Error en {tool_name}: {response_text}{Colors.ENDC}")
+                    print(f"{Colors.FAIL}❌ Error in {tool_name}: {response_text}{Colors.ENDC}")
                     self.failed_tests += 1
                     return False
                 
                 # Try to parse JSON to validate structure
                 try:
                     data = json.loads(response_text)
-                    data_count = len(data) if isinstance(data, (list, dict)) else 'datos'
-                    print(f"{Colors.OKGREEN}✅ {tool_name} - Respuesta válida (JSON con {data_count}){Colors.ENDC}")
+                    data_count = len(data) if isinstance(data, (list, dict)) else 'data'
+                    print(f"{Colors.OKGREEN}✅ {tool_name} - Valid response (JSON with {data_count}){Colors.ENDC}")
                     
                     # Add verbose JSON output if enabled
                     if self.verbose:
@@ -190,7 +190,7 @@ class GoPhishMCPTester:
                     self.passed_tests += 1
                     return True
                 except json.JSONDecodeError:
-                    print(f"{Colors.OKGREEN}✅ {tool_name} - Respuesta válida (texto){Colors.ENDC}")
+                    print(f"{Colors.OKGREEN}✅ {tool_name} - Valid response (text){Colors.ENDC}")
                     
                     # Add verbose text output if enabled
                     if self.verbose:
@@ -199,108 +199,108 @@ class GoPhishMCPTester:
                     self.passed_tests += 1
                     return True
             else:
-                print(f"{Colors.FAIL}❌ {tool_name} - Sin respuesta{Colors.ENDC}")
+                print(f"{Colors.FAIL}❌ {tool_name} - No response{Colors.ENDC}")
                 self.failed_tests += 1
                 return False
                 
         except Exception as e:
-            print(f"{Colors.FAIL}❌ Error en {tool_name}: {str(e)}{Colors.ENDC}")
+            print(f"{Colors.FAIL}❌ Error in {tool_name}: {str(e)}{Colors.ENDC}")
             self.failed_tests += 1
             return False
     
     async def run_all_readonly_tests(self):
         """Run all readonly tool tests"""
-        print(f"{Colors.HEADER}🚀 INICIANDO BATERÍA DE PRUEBAS - HERRAMIENTAS DE SOLO LECTURA{Colors.ENDC}")
+        print(f"{Colors.HEADER}🚀 STARTING TEST SUITE - READ-ONLY TOOLS{Colors.ENDC}")
         print(f"{Colors.BOLD}{'=' * 80}{Colors.ENDC}")
         
         if not self.initialize_client():
-            print(f"{Colors.FAIL}❌ No se puede continuar sin cliente GoPhish{Colors.ENDC}")
+            print(f"{Colors.FAIL}❌ Cannot continue without GoPhish client{Colors.ENDC}")
             return
         
-        # 🎯 GESTIÓN DE CAMPAÑAS (Lectura)
-        print(f"\n{Colors.OKBLUE}📋 PRUEBAS DE GESTIÓN DE CAMPAÑAS{Colors.ENDC}")
+        # 🎯 CAMPAIGN MANAGEMENT (Read-only)
+        print(f"\n{Colors.OKBLUE}📋 CAMPAIGN MANAGEMENT TESTS{Colors.ENDC}")
         print(f"{Colors.OKBLUE}{'-' * 50}{Colors.ENDC}")
         
         await self.test_tool("gophish_get_campaigns", 
-                           description="Obtener todas las campañas")
+                           description="Get all campaigns")
         
         await self.test_tool("gophish_get_active_campaigns", 
-                           description="Obtener campañas activas")
+                           description="Get active campaigns")
         
         await self.test_tool("gophish_get_completed_campaigns", 
-                           description="Obtener campañas completadas")
+                           description="Get completed campaigns")
         
         await self.test_tool("gophish_get_recent_campaigns", 
                            arguments={"days": 30},
-                           description="Obtener campañas recientes (30 días)")
+                           description="Get recent campaigns (30 days)")
         
         await self.test_tool("gophish_get_latest_campaign", 
-                           description="Obtener campaña más reciente")
+                           description="Get most recent campaign")
         
         await self.test_tool("gophish_get_campaigns_summary", 
                            arguments={"limit": 5},
-                           description="Obtener resumen de campañas (5)")
+                           description="Get campaign summary (5)")
         
-        # 📊 ANÁLISIS Y REPORTES (Lectura)
-        print(f"\n{Colors.OKBLUE}📊 PRUEBAS DE ANÁLISIS Y REPORTES{Colors.ENDC}")
+        # 📊 ANALYTICS AND REPORTING (Read-only)
+        print(f"\n{Colors.OKBLUE}📊 ANALYTICS AND REPORTING TESTS{Colors.ENDC}")
         print(f"{Colors.OKBLUE}{'-' * 50}{Colors.ENDC}")
         
         await self.test_tool("gophish_get_system_status", 
-                           description="Obtener estado del sistema")
+                           description="Get system status")
         
         await self.test_tool("gophish_get_global_analytics", 
-                           description="Obtener análisis global")
+                           description="Get global analytics")
         
-        # 🔍 BÚSQUEDA INTELIGENTE (Lectura)
-        print(f"\n{Colors.OKBLUE}🔍 PRUEBAS DE BÚSQUEDA INTELIGENTE{Colors.ENDC}")
+        # 🔍 INTELLIGENT SEARCH (Read-only)
+        print(f"\n{Colors.OKBLUE}🔍 INTELLIGENT SEARCH TESTS{Colors.ENDC}")
         print(f"{Colors.OKBLUE}{'-' * 50}{Colors.ENDC}")
         
         await self.test_tool("gophish_search_campaigns", 
                            arguments={"query": "test"},
-                           description="Buscar campañas con 'test'")
+                           description="Search campaigns containing 'test'")
         
         await self.test_tool("gophish_search_groups", 
                            arguments={"query": "test"},
-                           description="Buscar grupos con 'test'")
+                           description="Search groups containing 'test'")
         
         await self.test_tool("gophish_search_templates", 
                            arguments={"query": "test"},
-                           description="Buscar plantillas con 'test'")
+                           description="Search templates containing 'test'")
         
-        # 🛠️ GESTIÓN DE RECURSOS (Lectura)
-        print(f"\n{Colors.OKBLUE}🛠️ PRUEBAS DE GESTIÓN DE RECURSOS{Colors.ENDC}")
+        # 🛠️ RESOURCE MANAGEMENT (Read-only)
+        print(f"\n{Colors.OKBLUE}🛠️ RESOURCE MANAGEMENT TESTS{Colors.ENDC}")
         print(f"{Colors.OKBLUE}{'-' * 50}{Colors.ENDC}")
         
         await self.test_tool("gophish_get_groups", 
-                           description="Obtener todos los grupos")
+                           description="Get all groups")
         
         await self.test_tool("gophish_get_templates", 
-                           description="Obtener todas las plantillas")
+                           description="Get all templates")
         
         await self.test_tool("gophish_get_pages", 
-                           description="Obtener todas las páginas")
+                           description="Get all pages")
         
         await self.test_tool("gophish_get_smtp_profiles", 
-                           description="Obtener perfiles SMTP")
+                           description="Get SMTP profiles")
         
-        # 👤 GESTIÓN DE USUARIOS (Lectura)
-        print(f"\n{Colors.OKBLUE}👤 PRUEBAS DE GESTIÓN DE USUARIOS{Colors.ENDC}")
+        # 👤 USER MANAGEMENT (Read-only)
+        print(f"\n{Colors.OKBLUE}👤 USER MANAGEMENT TESTS{Colors.ENDC}")
         print(f"{Colors.OKBLUE}{'-' * 50}{Colors.ENDC}")
         
         await self.test_tool("gophish_get_users", 
-                           description="Obtener todos los usuarios")
+                           description="Get all users")
         
-        # 🔍 FILTROS AVANZADOS (Lectura)
-        print(f"\n{Colors.OKBLUE}🔍 PRUEBAS DE FILTROS AVANZADOS{Colors.ENDC}")
+        # 🔍 ADVANCED FILTERS (Read-only)
+        print(f"\n{Colors.OKBLUE}🔍 ADVANCED FILTER TESTS{Colors.ENDC}")
         print(f"{Colors.OKBLUE}{'-' * 50}{Colors.ENDC}")
         
         await self.test_tool("gophish_get_campaign_by_status", 
                            arguments={"status": "In Progress"},
-                           description="Filtrar campañas por estado 'In Progress'")
+                           description="Filter campaigns by 'In Progress' status")
         
         await self.test_tool("gophish_get_campaign_by_status", 
                            arguments={"status": "Completed"},
-                           description="Filtrar campañas por estado 'Completed'")
+                           description="Filter campaigns by 'Completed' status")
         
         # Test date range (last 30 days)
         end_date = datetime.now().isoformat()
@@ -308,10 +308,10 @@ class GoPhishMCPTester:
         
         await self.test_tool("gophish_get_campaign_by_date_range", 
                            arguments={"start_date": start_date, "end_date": end_date},
-                           description="Filtrar campañas por rango de fechas (últimos 30 días)")
+                           description="Filter campaigns by date range (last 30 days)")
         
-        # 📈 PRUEBAS CON CAMPAÑAS ESPECÍFICAS (si existen)
-        print(f"\n{Colors.OKBLUE}📈 PRUEBAS CON CAMPAÑAS ESPECÍFICAS{Colors.ENDC}")
+        # 📈 TESTS WITH SPECIFIC CAMPAIGNS (if available)
+        print(f"\n{Colors.OKBLUE}📈 SPECIFIC CAMPAIGN TESTS{Colors.ENDC}")
         print(f"{Colors.OKBLUE}{'-' * 50}{Colors.ENDC}")
         
         # First, get campaigns to test with specific IDs
@@ -324,77 +324,77 @@ class GoPhishMCPTester:
                     if campaign_id:
                         await self.test_tool("gophish_get_campaign", 
                                            arguments={"campaign_id": campaign_id},
-                                           description=f"Obtener campaña específica (ID: {campaign_id})")
+                                           description=f"Get specific campaign (ID: {campaign_id})")
                         
                         await self.test_tool("gophish_get_campaign_results", 
                                            arguments={"campaign_id": campaign_id},
-                                           description=f"Obtener resultados de campaña (ID: {campaign_id})")
+                                           description=f"Get campaign results (ID: {campaign_id})")
                         
                         await self.test_tool("gophish_get_campaign_summary", 
                                            arguments={"campaign_id": campaign_id},
-                                           description=f"Obtener resumen de campaña (ID: {campaign_id})")
+                                           description=f"Get campaign summary (ID: {campaign_id})")
                         
                         await self.test_tool("gophish_get_campaign_analytics", 
                                            arguments={"campaign_id": campaign_id},
-                                           description=f"Obtener análisis de campaña (ID: {campaign_id})")
+                                           description=f"Get campaign analytics (ID: {campaign_id})")
                         
                         await self.test_tool("gophish_get_campaign_targets", 
                                            arguments={"campaign_id": campaign_id},
-                                           description=f"Obtener objetivos de campaña (ID: {campaign_id})")
+                                           description=f"Get campaign targets (ID: {campaign_id})")
                         
                         await self.test_tool("gophish_get_campaign_events", 
                                            arguments={"campaign_id": campaign_id},
-                                           description=f"Obtener eventos de campaña (ID: {campaign_id})")
+                                           description=f"Get campaign events (ID: {campaign_id})")
                     else:
-                        print("⚠️  No se encontró ID de campaña válido")
+                        print("⚠️  No valid campaign ID found")
                 else:
-                    print("⚠️  No hay campañas disponibles para pruebas específicas")
+                    print("⚠️  No campaigns available for specific tests")
             except Exception as e:
-                print(f"⚠️  Error procesando campañas: {e}")
+                print(f"⚠️  Error processing campaigns: {e}")
         else:
-            print("⚠️  No se pudieron obtener campañas para pruebas específicas")
+            print("⚠️  Unable to retrieve campaigns for specific tests")
         
-        # 📊 RESUMEN FINAL
+        # 📊 FINAL SUMMARY
         print(f"\n{Colors.BOLD}{'=' * 80}{Colors.ENDC}")
-        print(f"{Colors.HEADER}📊 RESUMEN DE PRUEBAS{Colors.ENDC}")
+        print(f"{Colors.HEADER}📊 TEST SUMMARY{Colors.ENDC}")
         print(f"{Colors.BOLD}{'=' * 80}{Colors.ENDC}")
         
         total_tests = self.passed_tests + self.failed_tests
         success_rate = (self.passed_tests / total_tests * 100) if total_tests > 0 else 0
         
-        print(f"{Colors.OKGREEN}✅ Pruebas exitosas: {self.passed_tests}{Colors.ENDC}")
-        print(f"{Colors.FAIL}❌ Pruebas fallidas: {self.failed_tests}{Colors.ENDC}")
-        print(f"{Colors.OKBLUE}📊 Total de pruebas: {total_tests}{Colors.ENDC}")
-        print(f"{Colors.OKCYAN}🎯 Tasa de éxito: {success_rate:.1f}%{Colors.ENDC}")
+        print(f"{Colors.OKGREEN}✅ Successful tests: {self.passed_tests}{Colors.ENDC}")
+        print(f"{Colors.FAIL}❌ Failed tests: {self.failed_tests}{Colors.ENDC}")
+        print(f"{Colors.OKBLUE}📊 Total tests: {total_tests}{Colors.ENDC}")
+        print(f"{Colors.OKCYAN}🎯 Success rate: {success_rate:.1f}%{Colors.ENDC}")
         
         if success_rate >= 90:
-            print(f"{Colors.OKGREEN}🎉 ¡EXCELENTE! El agente GoPhish está funcionando perfectamente{Colors.ENDC}")
+            print(f"{Colors.OKGREEN}🎉 EXCELLENT! The GoPhish agent is working perfectly{Colors.ENDC}")
         elif success_rate >= 70:
-            print(f"{Colors.OKGREEN}✅ ¡BUENO! El agente GoPhish está funcionando bien{Colors.ENDC}")
+            print(f"{Colors.OKGREEN}✅ GOOD! The GoPhish agent is working well{Colors.ENDC}")
         elif success_rate >= 50:
-            print(f"{Colors.WARNING}⚠️  ¡REGULAR! Algunas herramientas necesitan atención{Colors.ENDC}")
+            print(f"{Colors.WARNING}⚠️  FAIR! Some tools need attention{Colors.ENDC}")
         else:
-            print(f"{Colors.FAIL}❌ ¡PROBLEMA! El agente GoPhish necesita revisión{Colors.ENDC}")
+            print(f"{Colors.FAIL}❌ ISSUE! The GoPhish agent needs review{Colors.ENDC}")
         
         print(f"{Colors.BOLD}{'=' * 80}{Colors.ENDC}")
 
 def parse_arguments():
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(
-        description="Batería de pruebas para herramientas de solo lectura del MCP GoPhish",
+        description="Test suite for GoPhish MCP read-only tools",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Ejemplos de uso:
-  python test_readonly_tools.py                    # Ejecutar pruebas básicas
-  python test_readonly_tools.py --verbose          # Ejecutar con salida detallada
-  python test_readonly_tools.py -v                 # Forma corta de verbose
+Usage examples:
+  python test_readonly_tools.py                    # Run basic tests
+  python test_readonly_tools.py --verbose          # Run with detailed output
+  python test_readonly_tools.py -v                 # Short form for verbose
         """
     )
     
     parser.add_argument(
         '-v', '--verbose',
         action='store_true',
-        help='Mostrar salida detallada con JSON formateado y colores'
+        help='Show detailed output with formatted JSON and colors'
     )
     
     return parser.parse_args()
@@ -404,7 +404,7 @@ async def main():
     args = parse_arguments()
     
     print(f"{Colors.HEADER}🧪 GoPhish MCP Tester{Colors.ENDC}")
-    print(f"{Colors.OKBLUE}Modo: {'Verbose (detallado)' if args.verbose else 'Básico'}{Colors.ENDC}")
+    print(f"{Colors.OKBLUE}Mode: {'Verbose' if args.verbose else 'Basic'}{Colors.ENDC}")
     print()
     
     tester = GoPhishMCPTester(verbose=args.verbose)

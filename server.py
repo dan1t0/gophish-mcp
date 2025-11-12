@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Servidor MCP de GoPhish
+GoPhish MCP server
 """
 import asyncio
 import json
@@ -34,9 +34,9 @@ class GophishMCPServer:
         self._setup_handlers()
     
     def _setup_handlers(self):
-        # Definir las herramientas - FASE 1: Prioridad Alta
+        # Define tools - PHASE 1: High Priority
         self.tools = [
-            # 🎯 GESTIÓN DE CAMPAÑAS (Core)
+            # 🎯 CAMPAIGN MANAGEMENT (Core)
             Tool(
                 name="gophish_get_campaigns",
                 description="Get all phishing campaigns from GoPhish",
@@ -161,7 +161,7 @@ class GophishMCPServer:
                 }
             ),
             
-            # 📊 ANÁLISIS Y REPORTES (Core)
+            # 📊 ANALYTICS AND REPORTING (Core)
             Tool(
                 name="gophish_get_campaign_results",
                 description="Get detailed results for a specific campaign",
@@ -223,7 +223,7 @@ class GophishMCPServer:
                 }
             ),
             
-            # 🔍 BÚSQUEDA INTELIGENTE (Core)
+            # 🔍 INTELLIGENT SEARCH (Core)
             Tool(
                 name="gophish_search_campaigns",
                 description="Search campaigns by name",
@@ -267,7 +267,7 @@ class GophishMCPServer:
                 }
             ),
             
-            # 🛠️ GESTIÓN DE RECURSOS (Fase 2)
+            # 🛠️ RESOURCE MANAGEMENT (Phase 2)
             Tool(
                 name="gophish_get_groups",
                 description="Get all groups from GoPhish",
@@ -421,7 +421,7 @@ class GophishMCPServer:
                 }
             ),
             
-            # 🔍 FILTROS AVANZADOS (Fase 2)
+            # 🔍 ADVANCED FILTERS (Phase 2)
             Tool(
                 name="gophish_get_campaign_by_status",
                 description="Get campaigns filtered by status",
@@ -483,7 +483,7 @@ class GophishMCPServer:
                 }
             ),
             
-            # 👤 GESTIÓN DE USUARIOS (Fase 3)
+            # 👤 USER MANAGEMENT (Phase 3)
             Tool(
                 name="gophish_get_users",
                 description="Get all users from GoPhish",
@@ -535,7 +535,7 @@ class GophishMCPServer:
                 }
             ),
             
-            # 🔄 OPERACIONES DE ACTUALIZACIÓN (Fase 3)
+            # 🔄 UPDATE OPERATIONS (Phase 3)
             Tool(
                 name="gophish_update_group",
                 description="Update existing group",
@@ -609,7 +609,7 @@ class GophishMCPServer:
                 }
             ),
             
-            # 🗑️ OPERACIONES DE ELIMINACIÓN (Fase 3)
+            # 🗑️ DELETE OPERATIONS (Phase 3)
             Tool(
                 name="gophish_delete_group",
                 description="Delete group by ID",
@@ -667,7 +667,7 @@ class GophishMCPServer:
                 }
             ),
             
-            # 🔄 HERRAMIENTAS EXISTENTES (mantener compatibilidad)
+            # 🔄 EXISTING TOOLS (backward compatibility)
             Tool(
                 name="gophish_get_latest_campaign",
                 description="Get the most recent campaign with full details",
@@ -709,7 +709,7 @@ class GophishMCPServer:
                 )]
             
             try:
-                # 🎯 GESTIÓN DE CAMPAÑAS
+                # 🎯 CAMPAIGN MANAGEMENT
                 if name == "gophish_get_campaigns":
                     campaigns = self.client.get_campaigns()
                     return [TextContent(
@@ -787,7 +787,7 @@ class GophishMCPServer:
                         text=json.dumps(campaigns, indent=2)
                     )]
                 
-                # 📊 ANÁLISIS Y REPORTES
+                # 📊 ANALYTICS AND REPORTING
                 elif name == "gophish_get_campaign_results":
                     campaign_id = (arguments or {}).get("campaign_id")
                     if not campaign_id:
@@ -837,7 +837,7 @@ class GophishMCPServer:
                         text=json.dumps(status, indent=2)
                     )]
                 
-                # 🔍 BÚSQUEDA INTELIGENTE
+                # 🔍 INTELLIGENT SEARCH
                 elif name == "gophish_search_campaigns":
                     query = (arguments or {}).get("query")
                     if not query:
@@ -875,7 +875,7 @@ class GophishMCPServer:
                         text=json.dumps(results, indent=2)
                     )]
                 
-                # 🛠️ GESTIÓN DE RECURSOS (Fase 2)
+                # 🛠️ RESOURCE MANAGEMENT (Phase 2)
                 elif name == "gophish_get_groups":
                     groups = self.client.get_groups()
                     return [TextContent(
@@ -971,7 +971,7 @@ class GophishMCPServer:
                         text=json.dumps(result, indent=2)
                     )]
                 
-                # 🔍 FILTROS AVANZADOS (Fase 2)
+                # 🔍 ADVANCED FILTERS (Phase 2)
                 elif name == "gophish_get_campaign_by_status":
                     status = (arguments or {}).get("status")
                     if not status:
@@ -1022,7 +1022,7 @@ class GophishMCPServer:
                         text=json.dumps(events, indent=2)
                     )]
                 
-                # 👤 GESTIÓN DE USUARIOS (Fase 3)
+                # 👤 USER MANAGEMENT (Phase 3)
                 elif name == "gophish_get_users":
                     users = self.client.get_users()
                     return [TextContent(
@@ -1059,7 +1059,7 @@ class GophishMCPServer:
                         text=json.dumps(result, indent=2)
                     )]
                 
-                # 🔄 OPERACIONES DE ACTUALIZACIÓN (Fase 3)
+                # 🔄 UPDATE OPERATIONS (Phase 3)
                 elif name == "gophish_update_group":
                     group_id = (arguments or {}).get("group_id")
                     group_data = (arguments or {}).get("group_data")
@@ -1113,7 +1113,7 @@ class GophishMCPServer:
                         text=json.dumps(result, indent=2)
                     )]
                 
-                # 🗑️ OPERACIONES DE ELIMINACIÓN (Fase 3)
+                # 🗑️ DELETE OPERATIONS (Phase 3)
                 elif name == "gophish_delete_group":
                     group_id = (arguments or {}).get("group_id")
                     if not group_id:
@@ -1163,7 +1163,7 @@ class GophishMCPServer:
                         text=json.dumps(result, indent=2)
                     )]
                 
-                # 🔄 HERRAMIENTAS EXISTENTES (compatibilidad)
+                # 🔄 EXISTING TOOLS (compatibility)
                 elif name == "gophish_get_latest_campaign":
                     campaigns = self.client.get_campaigns()
                     if not campaigns:
@@ -1214,7 +1214,7 @@ class GophishMCPServer:
             )]
         
         try:
-            # 🎯 GESTIÓN DE CAMPAÑAS
+            # 🎯 CAMPAIGN MANAGEMENT
             if name == "gophish_get_campaigns":
                 campaigns = self.client.get_campaigns()
                 return [TextContent(
@@ -1273,7 +1273,7 @@ class GophishMCPServer:
                     text=json.dumps(summary, indent=2)
                 )]
             
-            # 📊 ANÁLISIS Y REPORTES
+            # 📊 ANALYTICS AND REPORTING
             elif name == "gophish_get_campaign_results":
                 campaign_id = (arguments or {}).get("campaign_id")
                 if not campaign_id:
@@ -1323,7 +1323,7 @@ class GophishMCPServer:
                     text=json.dumps(status, indent=2)
                 )]
             
-            # 🔍 BÚSQUEDA INTELIGENTE
+            # 🔍 INTELLIGENT SEARCH
             elif name == "gophish_search_campaigns":
                 query = (arguments or {}).get("query")
                 if not query:
@@ -1361,7 +1361,7 @@ class GophishMCPServer:
                     text=json.dumps(results, indent=2)
                 )]
             
-            # 🛠️ GESTIÓN DE RECURSOS
+            # 🛠️ RESOURCE MANAGEMENT
             elif name == "gophish_get_groups":
                 groups = self.client.get_groups()
                 return [TextContent(
@@ -1387,7 +1387,7 @@ class GophishMCPServer:
                     text=json.dumps(smtp_profiles, indent=2)
                 )]
             
-            # 👤 GESTIÓN DE USUARIOS
+            # 👤 USER MANAGEMENT
             elif name == "gophish_get_users":
                 users = self.client.get_users()
                 return [TextContent(
@@ -1395,7 +1395,7 @@ class GophishMCPServer:
                     text=json.dumps(users, indent=2)
                 )]
             
-            # 🔍 FILTROS AVANZADOS
+            # 🔍 ADVANCED FILTERS
             elif name == "gophish_get_campaign_by_status":
                 status = (arguments or {}).get("status")
                 if not status:

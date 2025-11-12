@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script para listar campañas de Gophish
+Script to list GoPhish campaigns
 """
 import os
 import json
@@ -19,48 +19,48 @@ GOPHISH_URL = os.getenv("GOPHISH_URL", "https://localhost:3333")
 GOPHISH_API_KEY = os.getenv("GOPHISH_API_KEY")
 
 if not GOPHISH_API_KEY:
-    print("❌ Error: GOPHISH_API_KEY no está configurada")
-    print("   Configura las variables de entorno o crea un archivo .env")
+    print("❌ Error: GOPHISH_API_KEY is not configured")
+    print("   Set the environment variables or create a .env file")
     exit(1)
 
 def main():
-    print("Conectando a Gophish...")
+    print("Connecting to GoPhish...")
     client = GophishClient(GOPHISH_URL, GOPHISH_API_KEY)
     
-    print("Obteniendo campañas...\n")
+    print("Fetching campaigns...\n")
     campaigns = client.get_campaigns()
     
-    print(f"Total de campañas: {len(campaigns)}\n")
+    print(f"Total campaigns: {len(campaigns)}\n")
     
-    # Ordenar por ID (la más reciente suele tener el ID más alto)
+    # Sort by ID (the most recent usually has the highest ID)
     campaigns_sorted = sorted(campaigns, key=lambda x: x.get('id', 0), reverse=True)
     
     print("=" * 80)
-    print("ÚLTIMA CAMPAÑA")
+    print("MOST RECENT CAMPAIGN")
     print("=" * 80)
     
     if campaigns_sorted:
         latest = campaigns_sorted[0]
         print(f"\nID: {latest.get('id')}")
-        print(f"Nombre: {latest.get('name')}")
-        print(f"Estado: {latest.get('status')}")
-        print(f"Fecha de creación: {latest.get('created_date')}")
-        print(f"Fecha de lanzamiento: {latest.get('launch_date')}")
+        print(f"Name: {latest.get('name')}")
+        print(f"Status: {latest.get('status')}")
+        print(f"Created at: {latest.get('created_date')}")
+        print(f"Launched at: {latest.get('launch_date')}")
         
         if latest.get('template'):
-            print(f"Plantilla: {latest['template'].get('name', 'N/A')}")
+            print(f"Template: {latest['template'].get('name', 'N/A')}")
         
         if latest.get('page'):
-            print(f"Página: {latest['page'].get('name', 'N/A')}")
+            print(f"Landing page: {latest['page'].get('name', 'N/A')}")
         
         if latest.get('smtp'):
             print(f"SMTP: {latest['smtp'].get('name', 'N/A')}")
         
         if latest.get('results'):
-            print(f"\nResultados:")
-            print(f"  Total de objetivos: {len(latest['results'])}")
+            print(f"\nResults:")
+            print(f"  Total targets: {len(latest['results'])}")
             
-            # Contar estados
+            # Count statuses
             statuses = {}
             for result in latest['results']:
                 status = result.get('status', 'Unknown')
@@ -70,14 +70,14 @@ def main():
                 print(f"  - {status}: {count}")
         
         print("\n" + "=" * 80)
-        print("\nÚLTIMAS 10 CAMPAÑAS:")
+        print("\nLATEST 10 CAMPAIGNS:")
         print("=" * 80)
         
         for i, campaign in enumerate(campaigns_sorted[:10], 1):
             print(f"\n{i}. ID: {campaign.get('id')} - {campaign.get('name')}")
-            print(f"   Estado: {campaign.get('status')} | Creada: {campaign.get('created_date')}")
+            print(f"   Status: {campaign.get('status')} | Created: {campaign.get('created_date')}")
     else:
-        print("No se encontraron campañas")
+        print("No campaigns found")
 
 if __name__ == "__main__":
     main()

@@ -15,11 +15,13 @@ GOPHISH_API_KEY=your-api-key-here
 ## Running Tests
 
 ### Run all tests
+
 ```bash
 python test.py all
 ```
 
 ### Run specific test types
+
 ```bash
 # Read-only tests
 python test.py readonly
@@ -35,6 +37,7 @@ python test.py readonly --verbose
 ```
 
 ### Run individual tests
+
 ```bash
 # Basic connection test
 python -m pytest tests/individual/test_connection.py -v
@@ -50,6 +53,7 @@ pytest tests/individual/ -v
 ```
 
 ### Run from tests directory
+
 ```bash
 cd tests
 python run_tests.py
@@ -60,17 +64,20 @@ python run_comprehensive_tests.py
 ## File Structure
 
 ### Individual Tests (`individual/`)
+
 - `test_connection.py`: Basic GoPhish connection tests
 - `test_advanced_features.py`: Advanced MCP features tests
 - `test_diagnosis.py`: Connectivity diagnosis tests
 
 ### Main Test Scripts
+
 - `test_comprehensive.py`: Comprehensive test of all functionalities
 - `run_tests.py`: Main script to run all tests
 - `demo_verbose.py`: Verbose demo script
 - `run_comprehensive_tests.py`: Comprehensive test runner
 
 ### Organized Subdirectories
+
 - `scripts/`: Main test scripts (test_readonly_tools.py, demo_verbose.py)
 - `comprehensive/`: Comprehensive test suite
 - `individual/`: Individual test modules

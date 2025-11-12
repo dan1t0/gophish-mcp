@@ -3,6 +3,7 @@
 ## 🏗️ Correct Configuration Flow
 
 ### ❌ **Incorrect Configuration (Redundant)**
+
 ```
 MCP Client (Claude/Cursor) 
     ↓ (env variables)
@@ -14,6 +15,7 @@ GoPhish API
 **Problem**: Credentials duplicated in two places.
 
 ### ✅ **Correct Configuration (Current)**
+
 ```
 MCP Client (Claude/Cursor) 
     ↓ (command only)
@@ -27,6 +29,7 @@ GoPhish API
 ## 📁 **Where Credentials Go**
 
 ### 1. **MCP Server** (`.env`)
+
 ```bash
 # Only here, in the server
 GOPHISH_URL=https://your-server:3333
@@ -60,16 +63,19 @@ GOPHISH_API_KEY=your-real-api-key
 ## 🎯 **Advantages of this Architecture**
 
 ### Security
+
 - ✅ Credentials only in the server
 - ✅ Not exposed in client configuration files
 - ✅ Easy credential rotation
 
 ### Maintainability
+
 - ✅ Single source of truth for credentials
 - ✅ Client configuration independent of server
 - ✅ Easy deployment in different environments
 
 ### Flexibility
+
 - ✅ Same server can be used by multiple clients
 - ✅ Different environments (dev/prod) with different `.env`
 - ✅ Client doesn't need to know credentials
@@ -77,6 +83,7 @@ GOPHISH_API_KEY=your-real-api-key
 ## 📋 **Step-by-Step Configuration**
 
 ### 1. Configure Server
+
 ```bash
 # In the server directory
 cp env.example .env
@@ -84,6 +91,7 @@ cp env.example .env
 ```
 
 ### 2. Configure Client
+
 ```json
 {
   "mcpServers": {
@@ -97,6 +105,7 @@ cp env.example .env
 ```
 
 ### 3. Test Connection
+
 ```bash
 # From the server directory
 python server.py
@@ -105,14 +114,17 @@ python server.py
 ## 🔧 **Troubleshooting**
 
 ### Error: "GOPHISH_URL and GOPHISH_API_KEY environment variables must be set"
+
 - **Cause**: No `.env` file exists or is empty
 - **Solution**: Create `.env` with credentials
 
 ### Error: "No such file or directory"
+
 - **Cause**: `cwd` in JSON points to incorrect path
 - **Solution**: Use correct absolute path
 
 ### Error: "Module not found"
+
 - **Cause**: Server not installed or incorrect Python path
 - **Solution**: `pip install -e .` in server directory
 

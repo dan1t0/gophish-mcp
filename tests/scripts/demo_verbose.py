@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Demo del modo verbose del tester de GoPhish MCP
+Demo of verbose mode for GoPhish MCP tester
 """
 import asyncio
 import sys
@@ -10,29 +10,29 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from test_readonly_tools import GoPhishMCPTester
 
 async def demo_verbose():
-    """Demo con solo algunas herramientas para mostrar el formato verbose"""
-    print("🎬 DEMO DEL MODO VERBOSE - GoPhish MCP Tester")
+    """Demo with only a few tools to show verbose format"""
+    print("🎬 VERBOSE MODE DEMO - GoPhish MCP Tester")
     print("=" * 60)
     
     tester = GoPhishMCPTester(verbose=True)
     
     if not tester.initialize_client():
-        print("❌ No se puede continuar sin cliente GoPhish")
+        print("❌ Cannot continue without GoPhish client")
         return
     
-    # Demo con solo 3 herramientas representativas
-    print("\n🎯 DEMO: 3 herramientas con salida verbose")
+    # Demo with only 3 representative tools
+    print("\n🎯 DEMO: 3 tools with verbose output")
     print("-" * 40)
     
-    # 1. Obtener campañas (muchos datos)
+    # 1. Get campaigns (lots of data)
     await tester.test_tool("gophish_get_campaigns", 
-                          description="Obtener todas las campañas (demo verbose)")
+                          description="Get all campaigns (verbose demo)")
     
-    # 2. Estado del sistema (datos estructurados)
+    # 2. System status (structured data)
     await tester.test_tool("gophish_get_system_status", 
-                          description="Obtener estado del sistema (demo verbose)")
+                          description="Get system status (verbose demo)")
     
-    # 3. Una campaña específica (datos detallados)
+    # 3. A specific campaign (detailed data)
     campaigns_result = await tester.server._handle_tool_call("gophish_get_campaigns", {})
     if campaigns_result and len(campaigns_result) > 0:
         import json
@@ -42,9 +42,9 @@ async def demo_verbose():
             if campaign_id:
                 await tester.test_tool("gophish_get_campaign", 
                                       arguments={"campaign_id": campaign_id},
-                                      description=f"Campaña específica ID {campaign_id} (demo verbose)")
+                                      description=f"Specific campaign ID {campaign_id} (verbose demo)")
     
-    print(f"\n{chr(10).join(['=' * 60, '🎉 DEMO COMPLETADO', '=' * 60])}")
+    print(f"\n{chr(10).join(['=' * 60, '🎉 DEMO COMPLETED', '=' * 60])}")
 
 if __name__ == "__main__":
     asyncio.run(demo_verbose())

@@ -5,18 +5,22 @@ This directory contains utility scripts for GoPhish MCP Server.
 ## Scripts
 
 ### `list_campaigns.py`
+
 Lists campaigns from GoPhish with detailed information.
 
 **Usage:**
+
 ```bash
 python utils/list_campaigns.py
 ```
 
 **Requirements:**
+
 - Configure `.env` file with your GoPhish credentials
 - Or set environment variables `GOPHISH_URL` and `GOPHISH_API_KEY`
 
 **Features:**
+
 - Shows latest campaign details
 - Lists last 10 campaigns
 - Displays campaign statistics

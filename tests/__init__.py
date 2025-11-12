@@ -1,3 +1,3 @@
 """
-Tests para el MCP Server de GoPhish
+Tests for the GoPhish MCP Server
 """
