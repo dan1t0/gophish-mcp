@@ -1,6 +1,5 @@
 # 🎣 GoPhish MCP Server
 
-<div align="center">
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![MCP](https://img.shields.io/badge/MCP-Protocol-green.svg)
@@ -11,7 +10,6 @@
 
 [Features](#-key-features) • [Installation](#-installation) • [Configuration](#-configuration) • [Usage](#-usage-with-claude-cursor-vscode-kiro) • [Tools](#-available-tools)
 
-</div>
 
 ---
 
@@ -365,10 +363,10 @@ python test.py all
 
 ---
 
-<div align="center">
-
 **Made with ❤️ for the [GoPhish](https://github.com/gophish/gophish) community**
 
 ⭐ Star this repo if you find it useful!
 
-</div>
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
